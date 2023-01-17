@@ -9,6 +9,7 @@ type Context struct {
 	// Args is command arguments.
 	Args []string
 
+	Flags []string
 	// RawArgs is unprocessed command arguments.
 	RawArgs []string
 

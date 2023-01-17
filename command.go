@@ -13,6 +13,8 @@ type Cmd struct {
 	Name string
 	// Command name aliases.
 	Aliases []string
+	// Valid flags
+	Flags []string
 	// Function to execute for the command.
 	Func func(c *Context)
 	// One liner help message for the command.
@@ -50,6 +52,15 @@ func (c *Cmd) AddCmd(cmd *Cmd) {
 // DeleteCmd deletes cmd from subcommands.
 func (c *Cmd) DeleteCmd(name string) {
 	delete(c.children, name)
+}
+
+func (c Cmd) HasFlag(flag string) bool {
+	for _, cmdFlag := range c.Flags {
+		if flag == cmdFlag {
+			return true
+		}
+	}
+	return false
 }
 
 // Children returns the subcommands of c.

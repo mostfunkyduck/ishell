@@ -276,6 +276,14 @@ func (s *Shell) handleCommand(str []string) (bool, error) {
 		return true, nil
 	}
 	c := newContext(s, cmd, args)
+
+	if len(c.Flags) > 0 {
+		for _, flag := range c.Flags {
+			if !cmd.HasFlag(flag) {
+				return true, fmt.Errorf("invalid flag '%s'", flag)
+			}
+		}
+	}
 	cmd.Func(c)
 	return true, c.err
 }
@@ -659,13 +667,30 @@ func (s *Shell) ProgressBar() ProgressBar {
 	return s.progressBar
 }
 
+func (s *Shell) parseFlags(args []string) []string {
+	flags := []string{}
+	for _, flag := range args {
+		if strings.HasPrefix(flag, "-") {
+			// it's a flag
+			flags = append(flags, flag)
+		}
+	}
+	return flags
+}
+
 func newContext(s *Shell, cmd *Cmd, args []string) *Context {
 	if cmd == nil {
 		cmd = &Cmd{}
 	}
+
+	var flags []string
+	if args != nil {
+		flags = s.parseFlags(args)
+	}
 	return &Context{
 		Actions:     s.Actions,
 		progressBar: copyShellProgressBar(s),
+		Flags:       flags,
 		Args:        args,
 		RawArgs:     s.rawArgs,
 		Cmd:         *cmd,
