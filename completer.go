@@ -1,5 +1,6 @@
 package ishell
 
+// Jack: see documentation in fileCompleter function for main shell for why and how this was hacked
 import (
 	"strings"
 
@@ -34,12 +35,7 @@ func (ic iCompleter) Do(line []rune, pos int) (newLine [][]rune, length int) {
 
 	var suggestions [][]rune
 	for _, w := range cWords {
-		if strings.HasPrefix(w, prefix) {
-			suggestions = append(suggestions, []rune(strings.TrimPrefix(w, prefix)))
-		}
-	}
-	if len(suggestions) == 1 && prefix != "" && string(suggestions[0]) == "" {
-		suggestions = [][]rune{[]rune(" ")}
+		suggestions = append(suggestions, []rune(w))
 	}
 	return suggestions, len(prefix)
 }

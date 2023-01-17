@@ -1,15 +1,21 @@
 # ishell
-
 ishell is an interactive shell library for creating interactive cli applications.
 
-[![Go Reference](https://godocs.io/github.com/abiosoft/ishell/v2?status.svg)](https://godocs.io/github.com/abiosoft/ishell/v2)
+[![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/abiosoft/ishell)
 [![Go Report Card](https://goreportcard.com/badge/github.com/abiosoft/ishell)](https://goreportcard.com/report/github.com/abiosoft/ishell)
+
+## Older version
+The current master is not backward compatible with older version. Kindly change your import path to `gopkg.in/abiosoft/ishell.v1`.
+
+Older version of this library is still available at [https://gopkg.in/abiosoft/ishell.v1](https://gopkg.in/abiosoft/ishell.v1).
+
+However, you are advised to upgrade to v2 [https://gopkg.in/abiosoft/ishell.v2](https://gopkg.in/abiosoft/ishell.v2).
 
 ## Usage
 
 ```go
 import "strings"
-import "github.com/abiosoft/ishell/v2"
+import "github.com/abiosoft/ishell"
 
 func main(){
     // create new shell.
@@ -32,9 +38,7 @@ func main(){
     shell.Run()
 }
 ```
-
 Execution
-
 ```
 Sample Interactive Shell
 >>> help
@@ -52,7 +56,6 @@ $
 ```
 
 ### Reading input
-
 ```go
 // simulate an authentication
 shell.AddCmd(&ishell.Cmd{
@@ -77,9 +80,7 @@ shell.AddCmd(&ishell.Cmd{
     },
 })
 ```
-
 Execution
-
 ```
 >>> login
 Username: someusername
@@ -88,9 +89,7 @@ Authentication Successful.
 ```
 
 ### Multiline input
-
 Builtin support for multiple lines.
-
 ```
 >>> This is \
 ... multi line
@@ -100,9 +99,7 @@ Builtin support for multiple lines.
 ... as a single argument.
 ... EOF
 ```
-
 User defined
-
 ```go
 shell.AddCmd(&ishell.Cmd{
     Name: "multi",
@@ -115,9 +112,7 @@ shell.AddCmd(&ishell.Cmd{
     },
 })
 ```
-
 Execution
-
 ```
 >>> multi
 Input multiple lines and end with semicolon ';'.
@@ -127,11 +122,8 @@ You wrote:
 this is user defined
 multiline input;
 ```
-
 ### Keyboard interrupt
-
 Builtin interrupt handler.
-
 ```
 >>> ^C
 Input Ctrl-C once more to exit
@@ -139,9 +131,7 @@ Input Ctrl-C once more to exit
 Interrupted
 exit status 1
 ```
-
 Custom
-
 ```go
 shell.Interrupt(func(count int, c *ishell.Context) { ... })
 ```
@@ -163,9 +153,7 @@ func(c *ishell.Context) {
     }
 },
 ```
-
 Output
-
 ```
 What are Go programmers called ?
   Golangers
@@ -175,9 +163,7 @@ What are Go programmers called ?
 
 You got it!
 ```
-
 ### Checklist
-
 ```go
 func(c *ishell.Context) {
     languages := []string{"Python", "Go", "Haskell", "Rust"}
@@ -187,9 +173,7 @@ func(c *ishell.Context) {
     c.Println("Your choices are", strings.Join(out(), ", "))
 }
 ```
-
 Output
-
 ```
 What are your favourite programming languages ?
     Python
@@ -201,9 +185,7 @@ Your choices are Go, Rust
 ```
 
 ### Progress Bar
-
 Determinate
-
 ```go
 func(c *ishell.Context) {
     c.ProgressBar().Start()
@@ -215,15 +197,12 @@ func(c *ishell.Context) {
     c.ProgressBar().Stop()
 }
 ```
-
 Output
-
 ```
 [==========>         ] 50%
 ```
 
 Indeterminate
-
 ```go
 
 func(c *ishell.Context) {
@@ -233,15 +212,12 @@ func(c *ishell.Context) {
     c.ProgressBar().Stop()
 }
 ```
-
 Output
-
 ```
 [ ====               ]
 ```
 
 Custom display using [briandowns/spinner](https://github.com/briandowns/spinner).
-
 ```go
 display := ishell.ProgressDisplayCharSet(spinner.CharSets[11])
 func(c *Context) { c.ProgressBar().Display(display) ... }
@@ -251,14 +227,13 @@ ishell.ProgressBar().Display(display)
 ```
 
 ### Durable history
-
 ```go
 // Read and write history to $HOME/.ishell_history
 shell.SetHomeHistoryPath(".ishell_history")
 ```
 
-### Non-interactive execution
 
+### Non-interactive execution
 In some situations it is desired to exit the program directly after executing a single command.
 
 ```go
@@ -281,8 +256,8 @@ $ go run main.go exit greet Someusername
 Hello Someusername
 ```
 
-### Output with Color
 
+### Output with Color
 You can use [fatih/color](https://github.com/fatih/color).
 
 ```go
@@ -291,65 +266,56 @@ func(c *ishell.Context) {
     c.Println(yellow("This line is yellow"))
 }
 ```
-
 Execution
-
 ```sh
 >>> color
 This line is yellow
 ```
 
+
 ### Example
-
 Available [here](https://github.com/abiosoft/ishell/blob/master/example/main.go).
-
 ```sh
 go run example/main.go
 ```
 
 ## Supported Platforms
-
-- [x] Linux
-- [x] OSX
-- [x] Windows [Not tested but should work]
+* [x] Linux
+* [x] OSX
+* [x] Windows [Not tested but should work]
 
 ## Note
-
 ishell is in active development and can still change significantly.
 
 ## Roadmap (in no particular order)
-
-- [x] Multiline inputs
-- [x] Command history
-- [x] Customizable tab completion
-- [x] Handle ^C interrupts
-- [x] Subcommands and help texts
-- [x] Scrollable paged output
-- [x] Progress bar
-- [x] Multiple choice prompt
-- [x] Checklist prompt
-- [x] Support for command aliases
-- [ ] Multiple line progress bars
-- [ ] Testing, testing, testing
+* [x] Multiline inputs
+* [x] Command history
+* [x] Customizable tab completion
+* [x] Handle ^C interrupts
+* [x] Subcommands and help texts
+* [x] Scrollable paged output
+* [x] Progress bar
+* [x] Multiple choice prompt
+* [x] Checklist prompt
+* [x] Support for command aliases
+* [ ] Multiple line progress bars
+* [ ] Testing, testing, testing
 
 ## Contribution
-
 1. Create an issue to discuss it.
 2. Send in Pull Request.
 
 ## License
-
 MIT
 
 ## Credits
+Library | Use
+------- | -----
+[github.com/flynn-archive/go-shlex](https://github.com/flynn-archive/go-shlex) | splitting input into command and args.
+[github.com/chzyer/readline](https://github.com/chzyer/readline) | readline capabilities.
 
-| Library                                                                        | Use                                    |
-| ------------------------------------------------------------------------------ | -------------------------------------- |
-| [github.com/flynn-archive/go-shlex](https://github.com/flynn-archive/go-shlex) | splitting input into command and args. |
-| [github.com/chzyer/readline](https://github.com/chzyer/readline)               | readline capabilities.                 |
 
 ## Donate
-
 ```
 bitcoin: 1GTHYEDiy2C7RzXn5nY4wVRaEN2GvLjwZN
 paypal: a@abiosoft.com
