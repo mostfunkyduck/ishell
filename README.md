@@ -1,8 +1,9 @@
+# Forked from abiosoft/shell
+
 # ishell
 ishell is an interactive shell library for creating interactive cli applications.
 
 [![Documentation](https://img.shields.io/badge/godoc-reference-blue.svg?style=flat-square)](https://godoc.org/github.com/abiosoft/ishell)
-[![Go Report Card](https://goreportcard.com/badge/github.com/abiosoft/ishell)](https://goreportcard.com/report/github.com/abiosoft/ishell)
 
 ## Older version
 The current master is not backward compatible with older version. Kindly change your import path to `gopkg.in/abiosoft/ishell.v1`.
@@ -15,7 +16,7 @@ However, you are advised to upgrade to v2 [https://gopkg.in/abiosoft/ishell.v2](
 
 ```go
 import "strings"
-import "github.com/abiosoft/ishell"
+import "github.com/mostfunkyduck/ishell"
 
 func main(){
     // create new shell.
@@ -274,7 +275,7 @@ This line is yellow
 
 
 ### Example
-Available [here](https://github.com/abiosoft/ishell/blob/master/example/main.go).
+Available [here](https://github.com/mostfunkyduck/ishell/blob/master/example/main.go).
 ```sh
 go run example/main.go
 ```
@@ -313,10 +314,3 @@ Library | Use
 ------- | -----
 [github.com/flynn-archive/go-shlex](https://github.com/flynn-archive/go-shlex) | splitting input into command and args.
 [github.com/chzyer/readline](https://github.com/chzyer/readline) | readline capabilities.
-
-
-## Donate
-```
-bitcoin: 1GTHYEDiy2C7RzXn5nY4wVRaEN2GvLjwZN
-paypal: a@abiosoft.com
-```
