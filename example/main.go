@@ -17,6 +17,23 @@ func main() {
 	// display info.
 	shell.Println("Sample Interactive Shell")
 
+	shell.AddCmd(&ishell.Cmd{
+		Name: "flags",
+		Flags: []string{"-b"},
+		Func: func(c *ishell.Context) {
+			c.ShowPrompt(false)
+			defer c.ShowPrompt(true)
+
+			c.Printf("Flags were:")
+			for _, flag := range(c.Flags) {
+				c.Printf(" %s", flag)
+			}
+			c.Printf("\n")
+
+		},
+		Help: "example flags",
+	})
+
 	// Consider the unicode characters supported by the users font
 	// shell.SetMultiChoicePrompt(" >>"," - ")
 	// shell.SetChecklistOptions("[ ] ","[X] ")
