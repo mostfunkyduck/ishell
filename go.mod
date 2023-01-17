@@ -1,4 +1,4 @@
-module github.com/abiosoft/ishell
+module github.com/mostfunkyduck/ishell/v2
 
 go 1.18
 
