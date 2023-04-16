@@ -24,13 +24,20 @@ func (ic iCompleter) Do(line []rune, pos int) (newLine [][]rune, length int) {
 		words = strings.Fields(string(line))
 	}
 
+	var wordsWithoutFlags []string
+	for _, w := range words {
+		if !strings.HasPrefix(w, "-") {
+			wordsWithoutFlags = append(wordsWithoutFlags, w)
+		}
+	}
+
 	var cWords []string
 	prefix := ""
-	if len(words) > 0 && pos > 0 && line[pos-1] != ' ' {
-		prefix = words[len(words)-1]
-		cWords = ic.getWords(prefix, words[:len(words)-1])
+	if len(wordsWithoutFlags) > 0 && pos > 0 && line[pos-1] != ' ' {
+		prefix = wordsWithoutFlags[len(wordsWithoutFlags)-1]
+		cWords = ic.getWords(prefix, words[:len(wordsWithoutFlags)-1])
 	} else {
-		cWords = ic.getWords(prefix, words)
+		cWords = ic.getWords(prefix, wordsWithoutFlags)
 	}
 
 	var suggestions [][]rune
